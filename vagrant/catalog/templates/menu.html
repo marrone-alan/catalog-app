@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog App</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <!-- PRE-REQUISITES FOR GOOGLE SIGN IN [BEGIN]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <!-- PRE-REQUISITES FOR GOOGLE SIGN IN [END]-->
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-wrapper">
+        <div class="div-title">
+          <a href="/" class="title">Catalog</a>
+        </div>
+        <div class="buttons">
+          {% if isLogged %}
+            <a class="buttons-link logout" href="{{url_for('gdisconnect')}}">
+              <span>Logout</span>
+            </a>
+          {% else %}
+            <div id="signinButton">
+              <span class="g-signin"
+                data-scope="openid email"
+                data-clientid="741642941119-el4tieqn7lvads2igs5g4pmfojmvphjc.apps.googleusercontent.com"
+                data-redirecturi="postmessage"
+                data-accesstype="offline"
+                data-cookiepolicy="single_host_origin"
+                data-callback="signInCallback"
+                data-approvalprompt="force">
+              </span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+    <div id="result"></div>
+    <div class="container">
+      <div class="buttons">
+        {% if isLogged %}
+          <a class="buttons-link new-item" href="{{url_for('newCategory')}}">
+            <span>New Category</span>
+          </a>
+        {% endif %}
+      </div>
+      <section class="categories">
+        <h1 class="section-title categories-title">Categories</h1>
+        <div class="categories-container">
+          {% for category in categories %}
+            <div class="category">
+              <a class="category-link" href ="{{url_for('categoryItems', categories_id = category.id) }}">
+                <span class="category-text">{{category.name}}</span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section class="main">
+        <h2 class="section-title main-title">Latest Items</h2>
+        <div class="main-container">
+          {% for item in items %}
+            <div class="main-item">
+              <a class="main-link" href="{{url_for('detailItem', categories_id = item.categories_id, item_id = item.id) }}">
+                <span class="main-text">{{item.name}}</span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+
+    <!-- LOGIN SCRIPT [BEGIN]-->
+    <script>
+      function signInCallback(authResult) {
+        if (authResult['code']) {
+          // Send the one-time-use code to the server, if the server responds, reload the home page
+          $.ajax({
+            type: 'POST',
+            url: '/gconnect?state={{STATE}}',
+            processData: false,
+            data: authResult['code'],
+            contentType: 'application/octet-stream; charset=utf-8',
+            success: function(result) {
+              // Handle or verify the server response if necessary.
+              if (result) {
+                window.location.href = "/";
+              } else if (authResult['error']) {
+                console.log('There was an error: ' + authResult['error']);
+              } else {
+                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+              }
+            }
+          });
+        }
+      }
+    </script>
+    <!-- LOGIN SCRIPT [END]-->
+  </body>
+</html>

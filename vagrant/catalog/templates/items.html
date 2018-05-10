@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog App</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-wrapper">
+        <div class="div-title">
+          <a href="/" class="title">Catalog</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <section class="main">
+        <h2 class="section-title main-title">{{category.name}}</h2>
+        <div class="main-container">
+          {% for item in items %}
+            <div class="main-item">
+              <a class="main-link" href="{{url_for('detailItem', categories_id = item.categories_id, item_id = item.id) }}">
+                <span class="main-text">{{item.name}}</span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% if isCreator %}
+        <div class="buttons">
+          <a class="buttons-link new-item" href="{{url_for('newItem', categories_id = categories_id) }}">
+            <span>New Item</span>
+          </a>
+          <a class="buttons-link edit-item" href="{{url_for('editCategory', categories_id = categories_id) }}">
+            <span>Edit Category</span>
+          </a>
+          <a class="buttons-link delete-item" href="{{url_for('deleteCategory', categories_id = categories_id) }}">
+            <span>Delete Category</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

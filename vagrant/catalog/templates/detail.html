@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog App</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-wrapper">
+        <div class="div-title">
+          <a href="/" class="title">Catalog</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <section class="main">
+        <h2 class="section-title main-title">{{item.name}}</h2>
+        <div class="main-container">
+            <div class="main-item">
+                <span class="main-text">{{item.description}}</span>
+            </div>
+        </div>
+      </section>
+      {% if isCreator %}
+        <div class="buttons">
+          <a class="buttons-link edit-item" href="{{url_for('editItem', categories_id = categories_id, item_id = item.id) }}">
+            <span>Edit Item</span>
+          </a>
+          <a class="buttons-link delete-item" href="{{url_for('deleteItem', categories_id = categories_id, item_id = item.id) }}">
+            <span>Delete Item</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

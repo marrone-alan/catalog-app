@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog App</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-wrapper">
+        <div class="div-title">
+          <a href="/" class="title">Catalog</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <form action="{{ url_for('editItem', categories_id=categories_id, item_id=item_id )}}" method = 'post'>
+      <div class="form">
+        <h2 class="section-title main-title">{{category.name}}</h2>
+        <span class="main-subtitle">Edit Item</span>
+        <input name="name" type="text" class="input" placeholder="Name" value="{{item.name}}" />
+        <textarea name="description" type="text" class="input" placeholder="Description">{{item.description}}</textarea>
+        <div class="buttons-action">
+          <a class="buttons-link cancel" href="{{url_for('detailItem', categories_id=categories_id, item_id=item.id)}}"> Cancel </a>
+          <input class="buttons-link confirm" type="submit" value="Edit"/>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
