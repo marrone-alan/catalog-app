@@ -170,6 +170,10 @@ def getUserID(email):
 @app.route('/JSON')
 def categoriesJSON():
     categories = session.query(Categories).all()
+    for c in categories:
+        items = session.query(Item).filter_by(
+            categories_id=c.id).all()
+        c.items = [item.serialize for item in items]
     return jsonify(Categories=[i.serialize for i in categories])
 
 

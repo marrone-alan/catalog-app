@@ -31,6 +31,7 @@ class Categories(Base):
         return {
             'name': self.name,
             'id': self.id,
+            'items' : self.items
         }
 
 
