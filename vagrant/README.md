@@ -1,10 +1,10 @@
 
 # Catalog App
 This is a **Catalog App**. A project to show what was learned from CRUD.
-It's a app where you can read, create, edit and delete categories and items from the catalog
+It's a app where you can read, create, edit and delete categories and items from a catalog
 
 ## Programming language
-This program was written in _python_.
+This program was developed in _python_.
 _PostgreSQL was also used to show data.
 
 ## How to install python
@@ -12,7 +12,7 @@ You can download _python_ [here](https://www.python.org/downloads/).
 If you are having trouble on how to install, this [link](http://docs.python-guide.org/en/latest/starting/installation/#python-3-installation-guides) might be useful.
 
 ### VirtualBox
-You need to download and install the **VirtualBox** to execute a virtual machine. You don't need to run after install, **vagrant** will do it for you.
+You need to download and install **VirtualBox** to execute a virtual machine. You don't need to run after install, **vagrant** will do it for you.
 You can download it [here](https://www.virtualbox.org/wiki/Downloads).
 
 ### Vagrant
@@ -26,7 +26,7 @@ When  ```vagrant up ``` ends, you will have your shell prompt back. You can use 
 
 
 ## Starting the database and running the project
-To start thing up, change the directory to **catalog** and run *python database_setup.py* to create a database.
+To start things up, change the directory to **catalog** and run *python database_setup.py* to create a database.
 If you want, there is a file with a lot of categories and itens to show how the program works. Run the *python lotofcategories.py* to get access to it.
 Finally, run *python project.py* to start it.
 You can check the result in your browse using this: http://localhost:5000/
